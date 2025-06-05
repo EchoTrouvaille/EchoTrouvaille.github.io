@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyon的独家休息站</title>
+    <style>
+        body {
+            background: #f0f6ff;
+            color: #1a237e;
+            font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #1976d2;
+            color: #fff;
+            padding: 2rem 1rem 1.2rem 1rem;
+            text-align: center;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 2rem;
+        }
+        .input-area {
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            border: 2px solid #1976d2;
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 1rem;
+            background: #fff;
+            color: #1a237e;
+            box-sizing: border-box;
+        }
+        button {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 2.2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+        .result {
+            margin-top: 2.5rem;
+            text-align: center;
+            min-height: 80px;
+        }
+        .emoji {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .encourage {
+            font-size: 1.2rem;
+            color: #1976d2;
+        }
+        .footer {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            color: #1976d2;
+            font-size: 1rem;
+            opacity: 0.8;
+            z-index: 10;
+            user-select: none;
+        }
+        @media (max-width: 600px) {
+            .header { font-size: 1.2rem; padding: 1.2rem 0.5rem 0.8rem 0.5rem; }
+            .container { margin-top: 1.2rem; }
+            .result { min-height: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Keyon的独家休息站</div>
+    <div class="container">
+        <div class="input-area">
+            <input type="text" id="moodInput" placeholder="请写下你的心情" required />
+            <button id="generateBtn">生成治愈</button>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+    <div class="footer">Jingrong always with you</div>
+    <script>
+        const emojis = [
+            "😀", "😃", "😄", "😁", "😆", "😇", "🙂", "😊", "😍", "🥰", "🤗", "😌", "😺", "🌈", "☀️", "🍀", "🌻", "🦄", "🍰", "🍦", "🎈", "🎉", "💖", "✨", "🫶", "🤍", "🩵", "🫧"
+        ];
+        const encourages = [
+            "你已经很棒了，别忘了给自己一个微笑！",
+            "无论遇到什么，阳光总会照进来。",
+            "相信自己，你值得被温柔以待。",
+            "每一天都是新的开始，加油！",
+            "你的努力终将被看见。",
+            "别担心，一切都会好起来的。",
+            "你不是一个人，世界在悄悄爱着你。",
+            "给自己一点耐心，一切都会慢慢变好的。",
+            "你值得拥有美好的一切。",
+            "今天也要好好照顾自己哦！",
+            "你的心情很重要，记得善待自己。",
+            "即使很难，也要相信希望一直都在。",
+            "你很勇敢，继续前行吧！",
+            "温柔地对待自己，世界会更温柔。",
+            "你的小小进步也值得被庆祝。"
+        ];
+        const moodInput = document.getElementById('moodInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultDiv = document.getElementById('result');
+
+        generateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // 只要输入框有内容就生成
+            if (moodInput.value.trim() !== "") {
+                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                const encourage = encourages[Math.floor(Math.random() * encourages.length)];
+                resultDiv.innerHTML = `<div class="emoji">${emoji}</div><div class="encourage">${encourage}</div>`;
+                moodInput.value = "";
+            } else {
+                resultDiv.innerHTML = `<div class="encourage">请先写下你的心情哦~</div>`;
+            }
+        });
+
+        // 支持回车键直接生成
+        moodInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                generateBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
