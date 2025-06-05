@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keyon的独家休息站</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 添加缓存控制 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -25,20 +21,6 @@
             align-items: center;
             padding: 20px;
             color: white;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* 添加版本号标签 */
-        .version-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0,0,0,0.2);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            z-index: 10;
         }
         
         .container {
@@ -50,8 +32,6 @@
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 2;
         }
         
         .header {
@@ -64,13 +44,11 @@
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             color: #f8f9fa;
-            animation: fadeInDown 1s ease;
         }
         
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
-            animation: fadeIn 1.5s ease;
         }
         
         .input-area {
@@ -78,16 +56,12 @@
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 25px;
-            animation: slideInUp 1s ease;
         }
         
         .input-area label {
             display: block;
             margin-bottom: 12px;
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .input-area textarea {
@@ -100,7 +74,6 @@
             font-size: 1rem;
             resize: none;
             transition: all 0.3s ease;
-            color: #333;
         }
         
         .input-area textarea:focus {
@@ -154,16 +127,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         .user-input {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 12px;
@@ -203,7 +166,6 @@
             opacity: 0.8;
             text-align: right;
             animation: float 3s ease-in-out infinite;
-            z-index: 2;
         }
         
         @keyframes float {
@@ -216,7 +178,7 @@
             position: absolute;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            z-index: 1;
+            z-index: -1;
         }
         
         .cloud:nth-child(1) {
@@ -243,46 +205,9 @@
             animation: drift 20s linear infinite;
         }
         
-        .cloud:nth-child(4) {
-            width: 150px;
-            height: 50px;
-            top: 15%;
-            right: 5%;
-            animation: drift 35s linear infinite;
-        }
-        
         @keyframes drift {
             0% { transform: translateX(-100px); }
             100% { transform: translateX(calc(100vw + 100px)); }
-        }
-        
-        .bubble {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            animation: floatBubble 15s infinite ease-in-out;
-            z-index: 1;
-        }
-        
-        @keyframes floatBubble {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(5px); }
-        }
-        
-        .cache-refresh {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.3);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            z-index: 10;
         }
         
         /* 响应式设计 */
@@ -335,20 +260,11 @@
             .encouragement {
                 font-size: 1.1rem;
             }
-            
-            .version-tag, .cache-refresh {
-                font-size: 0.7rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- 添加版本号和缓存刷新按钮 -->
-    <div class="version-tag">版本: 2.1.0</div>
-    <button class="cache-refresh" onclick="location.reload(true)"><i class="fas fa-sync-alt"></i> 清除缓存刷新</button>
-    
-    <!-- 背景元素 -->
-    <div class="cloud"></div>
+    <!-- 背景云朵 -->
     <div class="cloud"></div>
     <div class="cloud"></div>
     <div class="cloud"></div>
@@ -360,7 +276,7 @@
         </div>
         
         <div class="input-area">
-            <label for="mood-input"><i class="fas fa-heart"></i> 请写下你的心情</label>
+            <label for="mood-input"><i class="fas fa-pencil-alt"></i> 请写下你的心情</label>
             <textarea id="mood-input" placeholder="无论是快乐还是忧伤，都请告诉我..."></textarea>
             <div class="button-container">
                 <button id="submit-btn">
@@ -386,12 +302,6 @@
         Jingrong always with you
     </div>
     
-    <!-- 气泡装饰 -->
-    <div class="bubble" style="width:30px; height:30px; top:15%; left:15%;"></div>
-    <div class="bubble" style="width:40px; height:40px; top:30%; right:20%; animation-delay: -2s;"></div>
-    <div class="bubble" style="width:25px; height:25px; bottom:40%; left:25%; animation-delay: -5s;"></div>
-    <div class="bubble" style="width:35px; height:35px; bottom:20%; right:30%; animation-delay: -7s;"></div>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const moodInput = document.getElementById('mood-input');
@@ -412,17 +322,12 @@
                 "生活不是等待风暴过去，而是学会在雨中起舞",
                 "你的存在本身就是一件美好的事，请珍惜自己",
                 "暂时的挫折是成长的阶梯，你正在变得更强大",
-                "世界因你而美丽，请继续闪耀光芒",
-                "深呼吸，放松心情，一切都会好起来的",
-                "你是独一无二的，你的价值无法用任何事物衡量",
-                "让过去的烦恼随风而去，迎接美好的明天",
-                "每一天都是新的开始，充满无限可能",
-                "你的笑容是世界上最美的风景"
+                "世界因你而美丽，请继续闪耀光芒"
             ];
             
             // Emoji库
             const emojis = [
-                "😊", "❤️", "✨", "🌟", "🌻", "🌈", "🦋", "☀️", "🌸", "🕊️", "🌷", "🌿", "💫", "🌼", "☘️"
+                "😊", "❤️", "✨", "🌟", "🌻", "🌈", "🦋", "☀️", "🌸", "🕊️"
             ];
             
             submitBtn.addEventListener('click', function() {
@@ -460,10 +365,6 @@
                     }
                 }
             });
-            
-            // 添加清除缓存提示
-            console.log("当前版本: 2.1.0");
-            console.log("如果页面未更新，请点击右上角'清除缓存刷新'按钮");
         });
     </script>
 </body>
