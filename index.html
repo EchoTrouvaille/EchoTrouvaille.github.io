@@ -4,149 +4,367 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keyon的独家休息站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background: #f0f6ff;
-            color: #1a237e;
-            font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #3498db, #1a5276);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
         }
-        .header {
-            background: #1976d2;
-            color: #fff;
-            padding: 2rem 1rem 1.2rem 1rem;
-            text-align: center;
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
+        
         .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            margin-top: 2rem;
-        }
-        .input-area {
-            width: 90%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        input[type="text"] {
             width: 100%;
-            padding: 0.8rem;
-            font-size: 1.1rem;
-            border: 2px solid #1976d2;
-            border-radius: 8px;
-            outline: none;
-            margin-bottom: 1rem;
-            background: #fff;
-            color: #1a237e;
-            box-sizing: border-box;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        button {
-            background: #1976d2;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 0.7rem 2.2rem;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background: #1565c0;
-        }
-        .result {
-            margin-top: 2.5rem;
+        
+        .header {
             text-align: center;
-            min-height: 80px;
+            margin-bottom: 30px;
         }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #f8f9fa;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .input-area {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .input-area label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .input-area textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            resize: none;
+            transition: all 0.3s ease;
+        }
+        
+        .input-area textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+            background: white;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            background: #f8f9fa;
+            color: #3498db;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            background: #e8eaed;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-input {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f8f9fa;
+        }
+        
+        .result-content {
+            text-align: center;
+        }
+        
         .emoji {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin: 15px 0;
+            animation: pulse 2s infinite;
         }
-        .encourage {
-            font-size: 1.2rem;
-            color: #1976d2;
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
+        
+        .encouragement {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        
         .footer {
             position: fixed;
-            right: 10px;
-            bottom: 10px;
-            color: #1976d2;
+            bottom: 20px;
+            right: 20px;
             font-size: 1rem;
             opacity: 0.8;
-            z-index: 10;
-            user-select: none;
+            text-align: right;
+            animation: float 3s ease-in-out infinite;
         }
-        @media (max-width: 600px) {
-            .header { font-size: 1.2rem; padding: 1.2rem 0.5rem 0.8rem 0.5rem; }
-            .container { margin-top: 1.2rem; }
-            .result { min-height: 60px; }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .cloud:nth-child(1) {
+            width: 120px;
+            height: 40px;
+            top: 20%;
+            left: 10%;
+            animation: drift 25s linear infinite;
+        }
+        
+        .cloud:nth-child(2) {
+            width: 180px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation: drift 30s linear infinite reverse;
+        }
+        
+        .cloud:nth-child(3) {
+            width: 100px;
+            height: 30px;
+            bottom: 25%;
+            left: 20%;
+            animation: drift 20s linear infinite;
+        }
+        
+        @keyframes drift {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .input-area, .result-container {
+                padding: 15px;
+            }
+            
+            .input-area textarea {
+                height: 100px;
+            }
+            
+            .emoji {
+                font-size: 3rem;
+            }
+            
+            .encouragement {
+                font-size: 1.2rem;
+            }
+            
+            .footer {
+                font-size: 0.9rem;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .emoji {
+                font-size: 2.5rem;
+            }
+            
+            .encouragement {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">Keyon的独家休息站</div>
+    <!-- 背景云朵 -->
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    
     <div class="container">
-        <div class="input-area">
-            <input type="text" id="moodInput" placeholder="请写下你的心情" required />
-            <button id="generateBtn">生成治愈</button>
+        <div class="header">
+            <h1>Keyon的独家休息站</h1>
+            <p>在这里，让疲惫的心灵得到治愈</p>
         </div>
-        <div class="result" id="result"></div>
+        
+        <div class="input-area">
+            <label for="mood-input"><i class="fas fa-pencil-alt"></i> 请写下你的心情</label>
+            <textarea id="mood-input" placeholder="无论是快乐还是忧伤，都请告诉我..."></textarea>
+            <div class="button-container">
+                <button id="submit-btn">
+                    <i class="fas fa-paper-plane"></i> 生成治愈能量
+                </button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <div class="user-input">
+                <strong>你的心情：</strong>
+                <p id="user-input-text"></p>
+            </div>
+            
+            <div class="result-content">
+                <div class="emoji" id="emoji-result">😊</div>
+                <div class="encouragement" id="encouragement-text"></div>
+            </div>
+        </div>
     </div>
-    <div class="footer">Jingrong always with you</div>
+    
+    <div class="footer">
+        Jingrong always with you
+    </div>
+    
     <script>
-        const emojis = [
-            "😀", "😃", "😄", "😁", "😆", "😇", "🙂", "😊", "😍", "🥰", "🤗", "😌", "😺", "🌈", "☀️", "🍀", "🌻", "🦄", "🍰", "🍦", "🎈", "🎉", "💖", "✨", "🫶", "🤍", "🩵", "🫧"
-        ];
-        const encourages = [
-            "你已经很棒了，别忘了给自己一个微笑！",
-            "无论遇到什么，阳光总会照进来。",
-            "相信自己，你值得被温柔以待。",
-            "每一天都是新的开始，加油！",
-            "你的努力终将被看见。",
-            "别担心，一切都会好起来的。",
-            "你不是一个人，世界在悄悄爱着你。",
-            "给自己一点耐心，一切都会慢慢变好的。",
-            "你值得拥有美好的一切。",
-            "今天也要好好照顾自己哦！",
-            "你的心情很重要，记得善待自己。",
-            "即使很难，也要相信希望一直都在。",
-            "你很勇敢，继续前行吧！",
-            "温柔地对待自己，世界会更温柔。",
-            "你的小小进步也值得被庆祝。"
-        ];
-        const moodInput = document.getElementById('moodInput');
-        const generateBtn = document.getElementById('generateBtn');
-        const resultDiv = document.getElementById('result');
-
-        generateBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            // 只要输入框有内容就生成
-            if (moodInput.value.trim() !== "") {
-                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-                const encourage = encourages[Math.floor(Math.random() * encourages.length)];
-                resultDiv.innerHTML = `<div class="emoji">${emoji}</div><div class="encourage">${encourage}</div>`;
-                moodInput.value = "";
-            } else {
-                resultDiv.innerHTML = `<div class="encourage">请先写下你的心情哦~</div>`;
-            }
-        });
-
-        // 支持回车键直接生成
-        moodInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                generateBtn.click();
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const moodInput = document.getElementById('mood-input');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultContainer = document.getElementById('result-container');
+            const userInputText = document.getElementById('user-input-text');
+            const emojiResult = document.getElementById('emoji-result');
+            const encouragementText = document.getElementById('encouragement-text');
+            
+            // 治愈话语库
+            const encouragements = [
+                "生活不会辜负每一个努力的人，你的付出终将开花结果",
+                "今天的烦恼就留在今天吧，明天会是崭新的一天",
+                "你已经做得很好了，给自己一个温暖的拥抱",
+                "风雨过后总会有彩虹，坚持就是胜利",
+                "你比自己想象的要坚强得多，相信自己",
+                "每一个小小的进步都值得庆祝，你真的很棒",
+                "生活不是等待风暴过去，而是学会在雨中起舞",
+                "你的存在本身就是一件美好的事，请珍惜自己",
+                "暂时的挫折是成长的阶梯，你正在变得更强大",
+                "世界因你而美丽，请继续闪耀光芒"
+            ];
+            
+            // Emoji库
+            const emojis = [
+                "😊", "❤️", "✨", "🌟", "🌻", "🌈", "🦋", "☀️", "🌸", "🕊️"
+            ];
+            
+            submitBtn.addEventListener('click', function() {
+                const userText = moodInput.value.trim();
+                
+                if (userText === "") {
+                    alert("请先写下你的心情哦~");
+                    return;
+                }
+                
+                // 显示用户输入
+                userInputText.textContent = userText;
+                
+                // 随机选择治愈话语和emoji
+                const randomEncouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // 更新结果
+                emojiResult.textContent = randomEmoji;
+                encouragementText.textContent = randomEncouragement;
+                
+                // 显示结果区域
+                resultContainer.style.display = 'block';
+                
+                // 滚动到结果区域
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // 按Enter键提交（同时按Ctrl/Command+Enter换行）
+            moodInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    if (!e.ctrlKey && !e.metaKey) {
+                        e.preventDefault();
+                        submitBtn.click();
+                    }
+                }
+            });
         });
     </script>
 </body>
